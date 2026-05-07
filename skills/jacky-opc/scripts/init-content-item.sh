@@ -3,10 +3,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck disable=SC1091
-. "$SCRIPT_DIR/common.sh"
+source "$SCRIPT_DIR/common.sh"
 
-require_opc_root
 ensure_managed_paths
 
 if [ $# -lt 2 ]; then
@@ -29,7 +27,7 @@ fi
 
 case "$type" in
   research)
-    render_template "$template" "$target" "$title" "$(human_date)" "research" "选题研究"
+    render_template "$template" "$target" "$title" "$(human_date)" "research" "research"
     ;;
   short-video|longform|xiaohongshu|post)
     render_template "$template" "$target" "$title" "$(human_date)" "$type" "待发布"
@@ -41,4 +39,3 @@ case "$type" in
 esac
 
 printf '%s\n' "$target"
-

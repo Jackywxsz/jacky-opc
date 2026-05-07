@@ -3,10 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck disable=SC1091
-. "$SCRIPT_DIR/common.sh"
-
-require_opc_root
+source "$SCRIPT_DIR/common.sh"
 
 if [ $# -lt 1 ]; then
   printf 'Usage: %s "keyword"\n' "$0" >&2
@@ -37,13 +34,16 @@ run_search() {
   fi
 }
 
-run_search "用户画像" "$OPC_ROOT/01.用户画像"
-run_search "对标账号" "$OPC_ROOT/02.对标账号"
-run_search "我的上下文" "$OPC_ROOT/03.我的上下文"
+# OPC System
 run_search "选题记录" "$OPC_ROOT/04.选题决策/选题管理/选题研究"
 run_search "待发布的选题" "$OPC_ROOT/04.选题决策/选题管理/待发布的选题"
 run_search "已发布的选题" "$OPC_ROOT/07.发布存档/已发布的选题"
-run_search "数据反馈" "$OPC_ROOT/08.数据反馈"
 run_search "经验沉淀" "$OPC_ROOT/09.经验沉淀"
-run_search "知识库" "$(knowledge_dir)"
+run_search "数据反馈" "$OPC_ROOT/08.数据反馈"
+run_search "对标账号" "$OPC_ROOT/02.对标账号"
 
+# 知识库
+run_search "知识库" "$KNOWLEDGE_DIR"
+
+# 风格参考
+run_search "风格参考" "$STYLE_DIR"
