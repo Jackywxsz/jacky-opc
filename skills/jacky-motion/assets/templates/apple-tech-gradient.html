@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>苹果科技渐变演示风 - CSS DNA 参考</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!--
+  CSS DNA 参考（给 AI 看的）
+
+  这不是模板，不要复制 HTML 结构。
+  AI 读取 CSS 变量和组件类，然后：
+  1. 为每个 beat 编写独立 CSS 类（如 b1-left, b2-grid）
+  2. 为每个 beat 编写独立 GSAP timeline 动画
+  3. .beat 用 position:absolute;inset:0 撑满画布，不加 padding
+  4. 内部容器自行设 padding 和布局，加 overflow:hidden
+  5. body 背景色必须与 stage 主背景色相同
+  6. stage 用固定像素（1920x1080 或 1440x1080）+ JS transform:scale() 缩放
+  7. 导航栏放在 #stage 内部，用 position:absolute，禁止 fixed
+  8. 字号下限（16:9）：标题 >= 96px，正文 >= 25px，标签 >= 18px
+  9. 视觉重心：每个 beat 必须有一个主导元素显著大于其他。图文 beat 截图 >= 40% 面积或标题 >= 正文 3 倍；纯文字 beat 主标题 >= 120px。禁止所有元素同等大小平铺
+  -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+    :root {
+      --bg: #000000;
+      --fg: #f5f5f7;
+      --soft: rgba(245,245,247,.7);
+      --muted: rgba(245,245,247,.4);
+      --accent: #e85d36;
+      --accent-dim: rgba(232,93,54,.08);
+      --glow: rgba(245,245,247,.06);
+      --glass: rgba(255,255,255,.04);
+      --glass-border: rgba(255,255,255,.08);
+      --sans: -apple-system,"SF Pro Display","SF Pro Text",Inter,"Noto Sans SC",system-ui,sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0}
+
+    body{
+      min-height:100vh;display:grid;place-items:center;
+      background:#000;color:var(--fg);font-family:var(--sans);
+      overflow:hidden;
+    }
+
+    #stage{
+      width:1920px;height:1080px;
+      position:relative;overflow:hidden;
+      background:radial-gradient(ellipse at 50% 50%,#111 0%,#000 70%);
+      transform-origin:center center;
+    }
+
+    .beat{position:absolute;inset:0;display:none}
+    .beat.active{display:grid}
+
+    /* ── 风格组件（苹果科技风 DNA） ── */
+
+    .concept{
+      font-size:clamp(48px,7vw,120px);font-weight:600;
+      line-height:1.0;letter-spacing:-.025em;color:var(--fg);
+    }
+    .module{
+      background:var(--glass);border:1px solid var(--glass-border);
+      border-radius:16px;padding:3vh 2.5vw;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      min-width:12vw;text-align:center;
+    }
+    .module-label{
+      font-size:clamp(15px,1.4vw,24px);font-weight:600;color:var(--fg);
+    }
+    .module-desc{
+      font-size:clamp(12px,1vw,17px);color:var(--muted);margin-top:1vh;line-height:1.4;
+    }
+    .glass-panel{
+      background:var(--glass);border:1px solid var(--glass-border);
+      border-radius:20px;padding:4vh 3vw;
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    }
+    .glow-accent{
+      position:absolute;width:280px;height:280px;border-radius:50%;
+      background:rgba(255,255,255,.03);filter:blur(80px);pointer-events:none;
+    }
+
+    .layer-item{
+      background:var(--glass);border:1px solid var(--glass-border);
+      border-radius:14px;padding:2.5vh 3vw;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      width:min(70%,600px);display:grid;gap:.8vh;
+    }
+    .layer-label{font-size:clamp(16px,1.5vw,24px);font-weight:600}
+    .layer-desc{font-size:clamp(13px,1.1vw,18px);color:var(--muted);line-height:1.45}
+    .layer-connector{
+      width:1px;height:3vh;background:var(--glass-border);
+      margin:0 auto;transform-origin:top center;
+    }
+
+    .ba-side{
+      background:var(--glass);border:1px solid var(--glass-border);
+      border-radius:18px;padding:4vh 3vw;
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      display:grid;gap:2vh;
+    }
+    .ba-side.after{
+      border-color:rgba(255,255,255,.15);
+      box-shadow:0 0 40px rgba(255,255,255,.04);
+    }
+    .ba-label{
+      font-size:clamp(11px,1vw,15px);font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    }
+    .ba-side.after .ba-label{color:var(--accent)}
+    .ba-title{font-size:clamp(22px,2.5vw,40px);font-weight:600;line-height:1.15}
+    .ba-desc{font-size:clamp(14px,1.2vw,20px);color:var(--muted);line-height:1.5}
+    .ba-divider{
+      width:1px;height:55%;background:var(--glass-border);
+      transform-origin:top center;
+    }
+
+    .orbit-center{text-align:center;z-index:2;position:relative}
+    .orbit-ring{
+      position:absolute;width:min(50vw,440px);height:min(50vw,440px);
+      top:50%;left:50%;transform:translate(-50%,-50%);
+    }
+    .orbit-item{
+      position:absolute;background:var(--glass);
+      border:1px solid var(--glass-border);border-radius:24px;
+      padding:1.2vh 1.8vw;backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);white-space:nowrap;
+    }
+    .orbit-label{font-size:clamp(13px,1.2vw,20px);font-weight:500}
+
+    .result-text{
+      font-size:clamp(44px,6.5vw,110px);font-weight:700;
+      line-height:1.0;letter-spacing:-.025em;color:var(--fg);
+    }
+    .result-desc{
+      font-size:clamp(16px,1.6vw,28px);color:var(--soft);
+      max-width:500px;margin:0 auto;line-height:1.5;
+    }
+
+    .kicker{
+      font-size:clamp(12px,1.1vw,18px);color:var(--accent);
+      letter-spacing:.06em;text-transform:uppercase;font-weight:500;
+    }
+    .headline{font-size:clamp(28px,4vw,64px);font-weight:600;line-height:1.1}
+    .sub-text{
+      font-size:clamp(15px,1.5vw,26px);color:var(--muted);
+      line-height:1.5;max-width:50%;
+    }
+    .keyword{color:var(--accent);font-weight:600}
+    .accent-word{color:var(--accent);font-weight:600}
+
+    .hint{
+      position:absolute;right:20px;bottom:14px;
+      opacity:.1;font-size:11px;color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+<main id="stage" aria-live="polite">
+  <!-- AI 为每个 beat 编写独立的 <section class="beat"> -->
+  <div class="hint">Click / Space / →</div>
+</main>
+
+<script>
+const beats = [...document.querySelectorAll('.beat')];
+let current = 0;
+
+const stage = document.getElementById('stage');
+function scaleStage(){
+  const s = Math.min(innerWidth/1920, innerHeight/1080);
+  stage.style.transform = 'scale('+s+')';
+}
+scaleStage();
+window.addEventListener('resize', scaleStage);
+
+function showBeat(idx) {
+  current = Math.max(0, Math.min(idx, beats.length - 1));
+  beats.forEach((b, i) => b.classList.toggle('active', i === current));
+  animateBeat(beats[current]);
+}
+
+function kill(beat) {
+  gsap.killTweensOf(beat.querySelectorAll('*'));
+  gsap.set(beat.querySelectorAll('*'), { clearProps: 'all' });
+}
+
+// AI 在这里编写 animateBeat(beat) 函数，为每个 beat 定制 GSAP timeline
+
+document.getElementById('stage').addEventListener('click', () => showBeat(current + 1));
+window.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); showBeat(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); showBeat(current - 1); }
+});
+
+if (beats[0]) { beats[0].classList.add('active'); }
+</script>
+</body>
+</html>

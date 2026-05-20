@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jacky Motion - 科普动画导演"
+  short_description: "5阶段流水线：审稿→分镜→锁风格→生成HTML→验收。把口播稿变成可录屏的高级信息动画HTML，4种内置风格，点击推进。"
+  default_prompt: "把这段口播稿走一遍科普动画流水线：审稿、分镜、锁风格、生成HTML、验收。"
