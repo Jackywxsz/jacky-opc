@@ -1,25 +1,51 @@
-# 安装 Jacky-OPC
+# 安装 Jacky 的创作者 AI Skill 仓库
 
-这个仓库只发布当前 `jacky-opc` 主 skill。上一版误加入的辅助 skill 已移除。
+## 推荐方式
 
-## 安装方式
+```bash
+npx skills add Jackywxsz/jacky-opc
+```
 
-把 `skills/jacky-opc/` 复制到你的 AI 工具 skill 目录。
+如果你的工具不支持 `npx skills add`，就手动复制需要的 skill。
+
+## 手动复制
+
+```bash
+cp -R skills/jacky-opc ~/.codex/skills/
+cp -R skills/jacky-hook ~/.codex/skills/
+cp -R skills/jacky-wiki ~/.codex/skills/
+cp -R skills/jacky-de-ai ~/.codex/skills/
+cp -R skills/jacky-xhs-check ~/.codex/skills/
+cp -R skills/jacky-illustration ~/.codex/skills/
+cp -R skills/jacky-motion ~/.codex/skills/
+```
+
+## 环境变量
+
+```bash
+export OPC_ROOT="$HOME/Documents/OPC System"
+export WIKI_ROOT="$HOME/Documents/知识库"
+export GOOGLE_API_KEY="your-key"
+```
+
+`GOOGLE_API_KEY` 只给 `jacky-illustration` 使用。不要把真实 key 写进 `SKILL.md`、脚本、README 或截图。
+
+## 最小安装
+
+只想体验主流程：
 
 ```bash
 cp -R skills/jacky-opc ~/.codex/skills/
 ```
 
-## 配置 OPC_ROOT
-
-复制 `opc-system-template/` 到你的内容工作区后，设置：
+只想优化开头：
 
 ```bash
-export OPC_ROOT="/Documents/OPC System"
+cp -R skills/jacky-hook ~/.codex/skills/
 ```
 
-如果你的工具不支持环境变量，就在对话里告诉 AI：
+只想做知识库沉淀：
 
-```text
-我的 OPC_ROOT 是 /你的/OPC System/路径。请先读取 CLAUDE.md 和 skills/jacky-opc/references/路径指南.md。
+```bash
+cp -R skills/jacky-wiki ~/.codex/skills/
 ```

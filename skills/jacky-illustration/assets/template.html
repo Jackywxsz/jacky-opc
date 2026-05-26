@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故都的秋 - 郁达夫</title>
+    <style>
+        :root {
+            --primary-color: #8c4a32;
+            --secondary-color: #d97706;
+            --bg-color: #fefcfb;
+            --text-color: #2d2d2d;
+            --accent-color: #f59e0b;
+            --serif-font: "Georgia", "Times New Roman", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", serif;
+            --sans-font: "Inter", "system-ui", "-apple-system", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--serif-font);
+            line-height: 1.8;
+            padding-bottom: 4rem;
+        }
+
+        .header {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('故都的秋4.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, var(--bg-color));
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            letter-spacing: 0.5rem;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            font-family: var(--sans-font);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-indent: 2em;
+            font-size: 1.35rem;
+            text-align: justify;
+        }
+
+        .article-image {
+            margin: 3rem auto;
+            width: 50%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .article-image:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background: #fff;
+            font-size: 1.05rem;
+            color: #666;
+            font-family: var(--sans-font);
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+            background: #fff9f0;
+            padding: 1rem 1.5rem;
+        }
+
+        .footer {
+            margin-top: 5rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #999;
+            font-family: var(--sans-font);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            p {
+                font-size: 1.25rem;
+            }
+
+            .article-image {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>故都的秋</h1>
+    </header>
+
+    <div class="container">
+        <div class="author">郁达夫</div>
+
+        <article>
+            <p>秋天，无论在什么地方的秋天，总是好的；可是啊，北国的秋，却特别地来得清，来得静，来得悲凉。我的不远千里，要从杭州赶上青岛，更要从青岛赶上北平来的理由，也不过想饱尝一尝这“秋”，这故都的秋味。</p>
+            <div class="article-image">
+                <img src="故都的秋1.png" alt="北平宁静的小院">
+                <span class="image-caption">“泡一碗浓茶，向院子一坐，看得到很高很高的碧绿的天色”</span>
+            </div>
+
+            <p>北国的槐树，也是一种能便人联想起秋来的点辍。像花而又不是花的那一种落蕊，早晨起来，会铺得满地。脚踏上去，声音也没有，气味也没有，只能感出一点点极微细极柔软的触觉。扫街的在树影下一阵扫后，灰土上留下来的一条条扫帚的丝纹，看起来既觉得细腻，又觉得清闲，潜意识下并且还觉得有点儿落寞，古人所说的梧桐一叶而天下知秋的遥想，大约也就在这些深沉的地方。
+            </p>
+            <div class="article-image">
+                <img src="故都的秋2.png" alt="北国的槐树落花">
+                <span class="image-caption">“落蕊，早晨起来，会铺得满地”</span>
+            </div>
+            <p>还有秋雨哩，北方的秋雨，也似乎比南方的下得奇，下得有味，下得更像样。</p>
+
+            <p>在灰沉沉的天底下，忽而来一阵凉风，便息列索落地下起雨来了。一层雨过，云渐渐地卷向了西去，天又晴了，太阳又露出脸来了，着着很厚的青布单衣或夹袄的都市闲人，咬着烟管，在雨后的斜桥影里，上桥头树底下去一立，遇见熟人，便会用了缓慢悠闲的声调，微叹着互答着地说：
+            </p>
+
+            <blockquote>
+                “唉，天可真凉了-----”（这了字念得很高，拖得很长。）<br>
+                “可不是吗？一层秋雨一层凉了！”
+            </blockquote>
+
+            <p>北方人念阵字，总老像是层字，平平仄仄起来，这念错的歧韵，倒来得正好。</p>
+
+            <p>北方的果树，到秋天，也是一种奇景。第一是枣子树，屋角，墙头，茅房边上，灶房门口，它都会一株株地长大起来。像橄榄又像鸽蛋似的这枣子颗儿，在小椭圆形的细叶中间，显出淡绿微黄的颜色的时候，正是秋的全盛时期，等枣树叶落，枣子红完，西北风就要起来了，北方便是沙尘灰土的世界，只有这枣子、柿子、葡萄，成熟到八九分的七八月之交，是北国的清秋的佳日，是一年之中最好也没有的Golden
+                Days。</p>
+
+            <div class="article-image">
+                <img src="故都的秋3.png" alt="北国的果树">
+                <span class="image-caption">“枣子、柿子、葡萄，成熟到八九分的七八月之交，是北国的清秋的佳日”</span>
+            </div>
+
+            <p>有些批评家说，中国的文人学士，尤其是诗人，都带着很浓厚的颓废的色彩，所以中国的诗文里，赞颂秋的文字的特别的多。但外国的诗人，又何尝不然？我虽则外国诗文念的不多，也不想开出帐来，做一篇秋的诗歌散文钞，但你若去一翻英德法意等诗人的集子，或各国的诗文的Anthology来，总能够看到许多并于秋的歌颂和悲啼。各著名的大诗人的长篇田园诗或四季诗里，也总以关于秋的部分。写得最出色而最有味。足见有感觉的动物，有情趣的人类，对于秋，总是一样地特别能引起深沉，幽远、严厉、萧索的感触来的。不单是诗人，就是被关闭在牢狱里的囚犯，到了秋天，我想也一定能感到一种不能自己的深情，秋之于人，何尝有国别，更何尝有人种阶级的区别呢？不过在中国，文字里有一个“秋士”的成语，读本里又有着很普遍的欧阳子的《秋声》与苏东坡的《赤壁赋》等，就觉得中国的文人，与秋和关系特别深了，可是这秋的深味，尤其是中国的秋的深味，非要在北方，才感受得到底。
+            </p>
+            <br />
+
+            <p>南国之秋，当然也是有它的特异的地方的，比如甘四桥的明月，钱塘江的秋潮，普陀山的凉雾，荔枝湾的残荷等等，可是色彩不浓，回味不永。比起北国的秋来，正像是黄河之与白干，稀饭之与馍馍，鲈鱼之与大蟹，黄犬之与骆驼。
+            </p>
+
+            <p>秋天，这北国的秋天，若留得住的话，我愿把寿命的三分之二折去，换得一个三分之一的零头。</p>
+        </article>
+
+        <footer class="footer">
+            &copy; 2026 故都的秋 - 图文排版
+        </footer>
+    </div>
+
+</body>
+
+</html>

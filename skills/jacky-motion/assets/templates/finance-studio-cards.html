@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>财经演播室卡片风 - CSS DNA 参考</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!--
+  CSS DNA 参考（给 AI 看的）
+
+  这不是模板，不要复制 HTML 结构。
+  AI 读取 CSS 变量和组件类，然后：
+  1. 为每个 beat 编写独立 CSS 类（如 b1-left, b2-grid）
+  2. 为每个 beat 编写独立 GSAP timeline 动画
+  3. .beat 用 position:absolute;inset:0 撑满画布，不加 padding
+  4. 内部容器自行设 padding 和布局，加 overflow:hidden
+  5. body 背景色必须与 stage 主背景色相同
+  6. stage 用固定像素（1920x1080 或 1440x1080）+ JS transform:scale() 缩放
+  7. 导航栏放在 #stage 内部，用 position:absolute，禁止 fixed
+  8. 字号下限（16:9）：标题 >= 96px，正文 >= 25px，标签 >= 18px
+  9. 视觉重心：每个 beat 必须有一个主导元素显著大于其他。图文 beat 截图 >= 40% 面积或标题 >= 正文 3 倍；纯文字 beat 主标题 >= 120px。禁止所有元素同等大小平铺
+  -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+    :root {
+      --bg: #0a0e17;
+      --fg: #e8edf5;
+      --soft: rgba(232,237,245,.7);
+      --muted: rgba(232,237,245,.4);
+      --accent: #00d4aa;
+      --accent-warm: #f59e0b;
+      --accent-dim: rgba(0,212,170,.1);
+      --glow-main: rgba(0,212,170,.18);
+      --glow-secondary: rgba(0,212,170,.06);
+      --card-bg: rgba(14,22,38,.85);
+      --card-border: rgba(255,255,255,.08);
+      --card-glow: 0 0 24px rgba(0,212,170,.12),0 0 1px rgba(0,212,170,.3);
+      --line-color: rgba(0,212,170,.35);
+      --sans: "SF Mono",Menlo,Inter,"Noto Sans SC",system-ui,sans-serif;
+      --sans-body: Inter,"Noto Sans SC",-apple-system,system-ui,sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0}
+
+    body{
+      min-height:100vh;display:grid;place-items:center;
+      background:#050810;color:var(--fg);font-family:var(--sans-body);
+      overflow:hidden;
+    }
+
+    #stage{
+      width:1920px;height:1080px;
+      position:relative;overflow:hidden;
+      background:linear-gradient(180deg,#0d1220 0%,var(--bg) 60%,#080c14 100%);
+      transform-origin:center center;
+    }
+
+    .top-bar{
+      position:absolute;top:0;left:0;right:0;height:5vh;
+      background:rgba(10,14,23,.9);
+      border-bottom:1px solid rgba(0,212,170,.12);
+      display:flex;align-items:center;padding:0 3vw;gap:2vw;
+      z-index:10;
+    }
+    .top-bar-label{
+      font-size:clamp(10px,.9vw,14px);color:var(--muted);letter-spacing:.04em;
+    }
+    .top-bar-accent{
+      font-size:clamp(10px,.9vw,14px);color:var(--accent);font-weight:600;
+    }
+
+    .beat{position:absolute;inset:0;display:none}
+    .beat.active{display:grid}
+
+    /* ── 风格组件（财经演播室风 DNA） ── */
+
+    .card{
+      background:var(--card-bg);border:1px solid var(--card-border);
+      border-radius:2px;padding:3vh 2vw;position:relative;
+    }
+    .card.main{
+      box-shadow:var(--card-glow);border-color:rgba(0,212,170,.2);
+      border-top:2px solid var(--accent);
+    }
+    .card.large{padding:4vh 3vw;min-width:16vw}
+    .card-title{font-size:clamp(18px,2vw,32px);font-weight:600}
+    .card-body{
+      font-size:clamp(13px,1.2vw,20px);color:var(--muted);
+      margin-top:1vh;line-height:1.5;
+    }
+
+    .node{
+      background:var(--card-bg);border:1px solid var(--card-border);
+      border-radius:1px;padding:1.5vh 1.5vw;
+      text-align:center;font-size:clamp(13px,1.2vw,20px);font-weight:500;
+      font-family:var(--sans);
+    }
+    .node.lit{
+      box-shadow:0 0 12px var(--glow-secondary);
+      border-color:var(--accent);color:var(--accent);
+    }
+    .node.main{
+      box-shadow:var(--card-glow);border-color:rgba(0,212,170,.25);
+      color:var(--accent);font-weight:600;border-left:3px solid var(--accent);
+    }
+
+    .glow-edge{
+      position:absolute;inset:-2px;border-radius:inherit;
+      border:1px solid transparent;
+      background:linear-gradient(135deg,rgba(0,212,170,.1),transparent 60%) border-box;
+      pointer-events:none;
+    }
+
+    .relation-line{
+      position:absolute;background:var(--line-color);height:2px;
+      transform-origin:left center;
+    }
+    .flow-arrow{
+      color:var(--accent);font-size:clamp(20px,2vw,36px);opacity:.5;
+    }
+
+    .kpi-number{
+      font-family:var(--sans);
+      font-size:clamp(36px,5vw,80px);font-weight:700;
+      color:var(--accent);line-height:1;
+      font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+    }
+    .kpi-label{
+      font-size:clamp(12px,1.1vw,18px);color:var(--muted);margin-top:1vh;
+    }
+
+    .kicker{
+      font-size:clamp(11px,1vw,15px);color:var(--accent);
+      letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+    }
+    .headline{font-size:clamp(28px,4vw,64px);font-weight:600;line-height:1.1}
+    .headline-sm{font-size:clamp(20px,2.5vw,40px);font-weight:600;line-height:1.15}
+    .sub-text{font-size:clamp(14px,1.4vw,24px);color:var(--muted);line-height:1.5}
+    .accent-word{color:var(--accent);font-weight:600}
+
+    .bar-item{
+      display:grid;grid-template-columns:8vw 1fr auto;
+      gap:1.5vw;align-items:center;
+    }
+    .bar-label{font-size:clamp(13px,1.2vw,20px);text-align:right}
+    .bar-track{
+      height:3vh;background:rgba(255,255,255,.04);
+      border-radius:3px;overflow:hidden;
+    }
+    .bar-fill{
+      height:100%;
+      background:linear-gradient(90deg,var(--accent),rgba(0,212,170,.5));
+      border-radius:3px;width:0%;
+    }
+    .bar-fill.lead{
+      background:linear-gradient(90deg,var(--accent),rgba(0,212,170,.85));
+      box-shadow:0 0 8px var(--glow-main);
+    }
+    .bar-value{
+      font-size:clamp(13px,1.2vw,20px);font-weight:600;
+      color:var(--accent);min-width:4vw;
+    }
+
+    .transmission-stage{
+      background:var(--card-bg);border:1px solid var(--card-border);
+      border-radius:2px;padding:3vh 2vw;min-width:12vw;text-align:center;
+    }
+    .transmission-stage.main{
+      box-shadow:var(--card-glow);border-color:rgba(0,212,170,.2);
+      border-top:2px solid var(--accent);
+    }
+    .stage-title{font-size:clamp(14px,1.3vw,22px);font-weight:600}
+    .stage-desc{font-size:clamp(11px,1vw,16px);color:var(--muted);margin-top:.5vh}
+
+    .flow-node{
+      background:var(--card-bg);border:1px solid var(--card-border);
+      border-radius:2px;padding:3vh 2vw;min-width:10vw;text-align:center;
+    }
+    .flow-node.main{
+      box-shadow:var(--card-glow);border-color:rgba(0,212,170,.2);
+      border-top:2px solid var(--accent);
+    }
+    .flow-label{font-size:clamp(14px,1.3vw,22px);font-weight:600}
+    .flow-amount{
+      font-size:clamp(18px,2vw,32px);font-weight:700;
+      color:var(--accent);margin-top:.8vh;
+    }
+    .flow-connector{color:var(--accent);font-size:clamp(18px,1.8vw,28px);opacity:.5}
+
+    .vs-divider{
+      width:1px;height:50%;background:var(--card-border);
+      position:relative;transform-origin:top center;
+    }
+    .vs-divider::after{
+      content:'VS';position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);font-size:12px;
+      color:var(--muted);background:var(--bg);padding:8px 4px;
+    }
+
+    .hint{
+      position:absolute;right:20px;bottom:14px;
+      opacity:.1;font-size:11px;
+    }
+  </style>
+</head>
+<body>
+<main id="stage" aria-live="polite">
+  <div class="top-bar">
+    <span class="top-bar-accent">LIVE</span>
+    <span class="top-bar-label">频道/栏目名</span>
+    <span class="top-bar-label" style="margin-left:auto">替换为日期</span>
+  </div>
+  <!-- AI 为每个 beat 编写独立的 <section class="beat"> -->
+  <div class="hint">Click / Space / →</div>
+</main>
+
+<script>
+const beats = [...document.querySelectorAll('.beat')];
+let current = 0;
+
+const stage = document.getElementById('stage');
+function scaleStage(){
+  const s = Math.min(innerWidth/1920, innerHeight/1080);
+  stage.style.transform = 'scale('+s+')';
+}
+scaleStage();
+window.addEventListener('resize', scaleStage);
+
+function showBeat(idx) {
+  current = Math.max(0, Math.min(idx, beats.length - 1));
+  beats.forEach((b, i) => b.classList.toggle('active', i === current));
+  animateBeat(beats[current]);
+}
+
+function kill(beat) {
+  gsap.killTweensOf(beat.querySelectorAll('*'));
+  gsap.set(beat.querySelectorAll('*'), { clearProps: 'all' });
+}
+
+// AI 在这里编写 animateBeat(beat) 函数，为每个 beat 定制 GSAP timeline
+
+document.getElementById('stage').addEventListener('click', () => showBeat(current + 1));
+window.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); showBeat(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); showBeat(current - 1); }
+});
+
+if (beats[0]) { beats[0].classList.add('active'); }
+</script>
+</body>
+</html>
