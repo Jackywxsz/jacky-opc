@@ -91,6 +91,7 @@ template_for_type() {
     longform) printf '%s\n' "$TEMPLATE_DIR/长文.md" ;;
     xiaohongshu) printf '%s\n' "$TEMPLATE_DIR/长文.md" ;;
     post) printf '%s\n' "$TEMPLATE_DIR/短文.md" ;;
+    research) printf '%s\n' "$TEMPLATE_DIR/研究笔记.md" ;;
     *)
       printf 'Unknown type: %s\n' "$1" >&2
       return 1
