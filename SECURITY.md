@@ -7,7 +7,6 @@ Never commit API keys, provider tokens, passwords, private keys, cookies, accoun
 Use environment variables instead:
 
 ```bash
-export GOOGLE_API_KEY="your-key"
 export OPC_ROOT="$HOME/Documents/OPC-System"
 ```
 
@@ -21,4 +20,3 @@ export OPC_ROOT="$HOME/Documents/OPC-System"
 ## Content Privacy
 
 Jacky-OPC is designed to help creators accumulate content assets. That also means your workspace may contain private strategy, revenue data, customer feedback, personal stories, and unpublished drafts. Keep those in your local workspace, not in the public repository.
-

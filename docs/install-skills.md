@@ -1,4 +1,4 @@
-# 安装 Jacky 的创作者 AI Skill 仓库
+# 安装 Jacky-OPC 写作系统 Skill 仓库
 
 ## 推荐方式
 
@@ -16,8 +16,6 @@ cp -R skills/jacky-hook ~/.codex/skills/
 cp -R skills/jacky-wiki ~/.codex/skills/
 cp -R skills/jacky-de-ai ~/.codex/skills/
 cp -R skills/jacky-xhs-check ~/.codex/skills/
-cp -R skills/jacky-illustration ~/.codex/skills/
-cp -R skills/jacky-motion ~/.codex/skills/
 ```
 
 ## 环境变量
@@ -25,10 +23,9 @@ cp -R skills/jacky-motion ~/.codex/skills/
 ```bash
 export OPC_ROOT="$HOME/Documents/OPC System"
 export WIKI_ROOT="$HOME/Documents/知识库"
-export GOOGLE_API_KEY="your-key"
 ```
 
-`GOOGLE_API_KEY` 只给 `jacky-illustration` 使用。不要把真实 key 写进 `SKILL.md`、脚本、README 或截图。
+视觉生成工具已独立到 [`Jacky-Illustration`](https://github.com/Jackywxsz/Jacky-Illustration)，动画演示工具已独立到 [`Jacky-motion`](https://github.com/Jackywxsz/Jacky-motion)。
 
 ## 最小安装
 

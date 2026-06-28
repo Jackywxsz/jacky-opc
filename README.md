@@ -1,12 +1,14 @@
-# Jacky 的创作者 AI Skill 仓库
+# Jacky-OPC 写作系统 Skill 仓库
 
 > Skill 不是护城河，生产体系才是。
 
-Jacky 的创作者 AI Skill 仓库，是一套面向内容创作者、个人 IP、超级个体和一人公司的 AI skill 仓库。
+Jacky-OPC 是一套面向内容创作者、个人 IP、超级个体和一人公司的 AI 写作生产体系。
 
-它不是“万能写稿提示词合集”，而是一套创作者工作台：从选题、开头、去 AI 味、知识库沉淀，到配图、信息动画、发布前检查，再到 Jacky-OPC 的完整内容生产系统。
+它不是“万能写稿提示词合集”，而是一套写作工作台：从定位、对标、选题、开头、去 AI 味、发布前检查，到知识库沉淀和数据复盘，形成完整内容生产循环。
 
 可在 Claude Code、Codex、Cursor、Trae Solo 等支持 skill / system prompt 的 Agent 上按需使用。
+
+> 兼容说明：仓库名和 skill 目录仍保留 `jacky-opc` 等原始名称，避免影响已经安装的用户。
 
 ## 付费知识库与答疑群
 
@@ -25,10 +27,10 @@ Jacky 的创作者 AI Skill 仓库，是一套面向内容创作者、个人 IP�
 
 v0.2.0 重点：
 
-- 收拢所有 `jacky-*` 系列 skill。
-- `jacky-opc` 从单独项目升级为创作者 AI skill 仓库的主系统。
+- 收拢写作相关 `jacky-*` 系列 skill。
+- `jacky-opc` 作为写作生产体系主系统。
 - 补充 `opc-system-template/`，让用户能照着搭建自己的内容生产文件夹。
-- 移除本机路径、API Key、输出图片、PDF 和私人内容。
+- 视觉生成类工具已独立维护：[`Jacky-motion`](https://github.com/Jackywxsz/Jacky-motion)、[`Jacky-Illustration`](https://github.com/Jackywxsz/Jacky-Illustration)。
 
 ## 如何安装
 
@@ -50,8 +52,6 @@ cp -R skills/jacky-hook ~/.codex/skills/
 cp -R skills/jacky-wiki ~/.codex/skills/
 cp -R skills/jacky-de-ai ~/.codex/skills/
 cp -R skills/jacky-xhs-check ~/.codex/skills/
-cp -R skills/jacky-illustration ~/.codex/skills/
-cp -R skills/jacky-motion ~/.codex/skills/
 ```
 
 你也可以只复制其中一个 skill。每个 skill 都是独立目录，根级包含 `SKILL.md`。
@@ -63,12 +63,10 @@ cp -R skills/jacky-motion ~/.codex/skills/
 ```bash
 export OPC_ROOT="$HOME/Documents/OPC System"
 export WIKI_ROOT="$HOME/Documents/知识库"
-export GOOGLE_API_KEY="your-key"
 ```
 
 - `OPC_ROOT`：`jacky-opc` 使用，指向你的 OPC System 文件夹。
 - `WIKI_ROOT`：`jacky-wiki` 使用，指向你的知识库。
-- `GOOGLE_API_KEY`：`jacky-illustration` 使用，禁止写入仓库文件。
 
 ## Skills 工具箱
 
@@ -79,8 +77,6 @@ export GOOGLE_API_KEY="your-key"
 | `jacky-wiki` | 知识库沉淀与检索 | 把对话沉淀到 Obsidian，或只基于知识库回答 |
 | `jacky-de-ai` | 去 AI 味改写 | 文案太像 AI、太书面、太顺滑 |
 | `jacky-xhs-check` | 小红书发布前风险检查 | 发笔记前查敏感词、绝对化表达、引流风险 |
-| `jacky-illustration` | 文章配图与图片提示词 | 给文章拆图、生成信息图、做社媒配图 |
-| `jacky-motion` | 口播稿转信息动画 HTML | 把中文口播稿做成 16:9 可录屏动画 |
 
 ## 常见使用路径
 
@@ -96,26 +92,6 @@ jacky-de-ai（风格打磨）
 jacky-xhs-check（发布前检查）
     ↓
 jacky-wiki（复盘沉淀）
-```
-
-### 图文内容路径
-
-```text
-jacky-opc（长文 / 小红书图文）
-    ↓
-jacky-illustration（配图方案）
-    ↓
-jacky-xhs-check（平台风险检查）
-```
-
-### 视频内容路径
-
-```text
-jacky-opc（短视频逐字稿）
-    ↓
-jacky-hook（前 5 秒）
-    ↓
-jacky-motion（信息动画 HTML）
 ```
 
 ### 知识资产路径
@@ -163,20 +139,25 @@ jacky-opc/
 │   ├── jacky-hook/
 │   ├── jacky-wiki/
 │   ├── jacky-de-ai/
-│   ├── jacky-xhs-check/
-│   ├── jacky-illustration/
-│   └── jacky-motion/
+│   └── jacky-xhs-check/
 ├── opc-system-template/
 ├── docs/
 ├── LICENSE
 └── README.md
 ```
 
+## 独立工具仓库
+
+视觉和动画工具已经从 Jacky-OPC 拆出，独立维护：
+
+- [`Jacky-motion`](https://github.com/Jackywxsz/Jacky-motion)：中文口播稿转 16:9 信息动画 HTML。
+- [`Jacky-Illustration`](https://github.com/Jackywxsz/Jacky-Illustration)：信息可视化配图、文章配图、IP 型风格生图。
+
 ## 脱敏边界
 
 这个仓库保留：
 
-- 当前 `jacky-*` skill 的主体说明、引用文件、模板和必要脚本。
+- 当前写作相关 `jacky-*` skill 的主体说明、引用文件、模板和必要脚本。
 - Jacky-OPC 的文件夹体系和方法论模板。
 - 可复用的选题、开头、复盘和内容生产结构。
 
