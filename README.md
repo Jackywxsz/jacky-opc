@@ -8,6 +8,17 @@ Jacky 的创作者 AI Skill 仓库，是一套面向内容创作者、个人 IP�
 
 可在 Claude Code、Codex、Cursor、Trae Solo 等支持 skill / system prompt 的 Agent 上按需使用。
 
+## 付费知识库与答疑群
+
+<a href="https://mp.weixin.qq.com/s/x924y3O9-nWda5OTHArKKg">
+  <img src="assets/creator-ai-course.jpg" alt="创作者 AI 课：用 AI 杠杆、代码杠杆、媒体杠杆，重塑内容创作生产体系" width="720">
+</a>
+
+我的付费知识库与答疑群欢迎加入：
+[https://mp.weixin.qq.com/s/x924y3O9-nWda5OTHArKKg](https://mp.weixin.qq.com/s/x924y3O9-nWda5OTHArKKg)
+
+期待与你的深度链接，一起用AI赋能，创作生财📈
+
 ## 最新更新
 
 当前版本：v0.2.0
